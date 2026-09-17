@@ -39,7 +39,7 @@ Response (abridged; a small JPEG thumbnail of the character is also returned as 
 }
 ```
 
-`type` is one of `version`, `work`, `evidence`, `channel`, `deal` (contract or transfer event). `chain.proof_ok` means the Merkle proof was recomputed and matched; `root_on_chain` means the root was read back from the chain, not from our database. Unknown hashes return `{"found": false}`. The endpoint never returns specification text or prompts.
+`type` is one of `version`, `work`, `evidence`, `channel`, `contract`, `transfer`. `chain.proof_ok` means the Merkle proof was recomputed and matched; `root_on_chain` means the root was read back from the chain, not from our database. Unknown hashes return `{"found": false}`. The endpoint never returns specification text or prompts.
 
 ### `GET /api/public/character/{AVL-XXXXXX}`
 
