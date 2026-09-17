@@ -20,19 +20,26 @@ Look up a fingerprint (64 hex chars). Works for specification versions, bound wo
 curl https://app.openstela.io/api/verify/708613fefe5bcb31a5bdc8cf4ff139b160b88dcc4072429a44e2ad1d547531c8
 ```
 
-Response (abridged):
+Response (abridged; a small JPEG thumbnail of the character is also returned as a data URI when the leaf is a specification version):
 
 ```json
 {
   "found": true,
-  "kind": "spec_version",
-  "registered_at": "2026-08-13T14:02:11+00:00",
-  "anchored": { "chain": "arbitrum-one", "tx": "0x…", "root": "0x…", "at": "2026-08-14T03:10:00+00:00" },
-  "proof": ["0x…", "0x…"]
+  "type": "version",
+  "id": "AVL-MWKRYG",
+  "leaf": "708613fe…7531c8",
+  "registered_at": "2026-08-09T16:24:20+00:00",
+  "pack_version": "1.1.0",
+  "anchored": true,
+  "chain": { "ok": true, "proof_ok": true, "root_on_chain": true, "root": "…", "tx": "0x…", "chain": "…", "explorer": "…" },
+  "disclaimer": {
+    "proves": "this specification has existed on this platform, unaltered, since 2026-08-09",
+    "does_not_prove": ["that the holder is the author", "…"]
+  }
 }
 ```
 
-`found: false` for anything not in the registry. The endpoint never returns character content — only registration time, chain anchoring and the Merkle proof.
+`type` is one of `version`, `work`, `evidence`, `channel`, `deal` (contract or transfer event). `chain.proof_ok` means the Merkle proof was recomputed and matched; `root_on_chain` means the root was read back from the chain, not from our database. Unknown hashes return `{"found": false}`. The endpoint never returns specification text or prompts.
 
 ### `GET /api/public/character/{AVL-XXXXXX}`
 
